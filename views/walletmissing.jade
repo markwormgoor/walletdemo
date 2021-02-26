@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  p A digital identity wallet is very similar to your fysical wallet. It can hold your credentials
+  form(action="/wallet", method="post")
+    div.input
+        span.label Your name:&nbsp;
+        input(type="text", name="name")
+    div.input 
+        span.label Your e-mail:&nbsp;
+        input(type="text", name="email")
+    div.actions 
+        input(type="submit", value="Generate Wallet")  

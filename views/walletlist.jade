@@ -1,0 +1,21 @@
+extends layout
+
+block content
+  p We have found the following actively managed wallets:
+  ul
+    each wallet in wallets
+      li Wallet ID: #{wallet.wallet_id}
+        br
+        span Owned by: #{wallet.settings.default_label} &lt;#{wallet.settings['wallet.name']}&gt;
+        br
+        form(action="/adopt", method="post")
+          div.actions 
+            input(type="hidden", name="wallet_id", value="#{wallet.wallet_id}")
+            input(type="submit", value="Adopt This Wallet")
+        form(action="/delete", method="post")
+          div.actions 
+            input(type="hidden", name="wallet_id", value="#{wallet.wallet_id}")
+            input(type="submit", value="Delete Wallet")
+
+        br
+

@@ -1,0 +1,24 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/fonts.css')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css')
+  body
+    div(class="topbar")
+      img(src="/images/logo.png", height="50", style="vertical-align: middle; padding: 0px 25px 0px 0px;")
+      span(style="font-weight: 400; font-size: 25px;") Secure Identity Demo v1
+    div(class="row")
+      div(class="sidebar")
+        a(href="/wallet")
+          span(class="fa fa-id-card")
+          span  Your Wallet
+        a(href="/step2")
+          span(class="fa fa-handshake-o")
+          span  Verify E-mail
+        a(href="/wallets")
+          span(class="fa fa-list-ul")
+          span  List all Wallets
+      div(class="content")
+        block content

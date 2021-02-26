@@ -1,0 +1,19 @@
+extends layout
+
+block content
+  p Here is the content of your wallet:
+  ul
+    li Wallet ID: #{wallet.wallet_id}
+    li Wallet created: #{wallet.created_at}
+    li Wallet last updated: #{wallet.updated_at}
+    li Wallet key management mode: #{wallet.key_management_mode}
+    li Wallet token: #{wallet.token}
+    li Wallet type: #{wallet.settings['wallet.type']}
+    li Wallet name: #{wallet.settings['wallet.name']}
+    li Wallet dispatch type: #{wallet.settings['wallet.dispatch_type']}
+    li Wallet label: #{wallet.settings.default_label}
+    li Wallet image url: #{wallet.settings.image_url}
+
+  form(action="/restart", method="get")
+    div.actions 
+        input(type="submit", value="Clear my current session")
