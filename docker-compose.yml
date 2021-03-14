@@ -2,10 +2,10 @@ version: "3.8"
 services:
   wallets:
     container_name: wallets
-    image: indy
+    image: aca-py
     build: 
       context: .
-      dockerfile: docker/Dockerfile.indy
+      dockerfile: docker/Dockerfile.aca-py
     command: |
       start --endpoint http://127.0.0.1:8060
       --inbound-transport http 0.0.0.0 8060
