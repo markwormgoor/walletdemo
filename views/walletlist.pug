@@ -10,11 +10,11 @@ block content
         br
         form(action="/adopt", method="post")
           div.actions 
-            input(type="hidden", name="wallet_id", value="#{wallet.wallet_id}")
+            input(type="hidden", name="wallet_id", value=wallet.wallet_id)
             input(type="submit", value="Adopt This Wallet")
         form(action="/delete", method="post")
           div.actions 
-            input(type="hidden", name="wallet_id", value="#{wallet.wallet_id}")
+            input(type="hidden", name="wallet_id", value=wallet.wallet_id)
             input(type="submit", value="Delete Wallet")
 
         br

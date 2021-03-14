@@ -17,20 +17,32 @@
     "pug": "^3.0.2"
   },
   "devDependencies": {
-    "nodemon": "^2.0.7"
+    "autoprefixer": "^10.2.5",
+    "nodemon": "^2.0.7",
+    "postcss": "^8.2.8",
+    "postcss-cli": "^8.3.1",
+    "tailwindcss": "^2.0.3"
+  },
+  "postcss": {
+    "modules": true,
+    "plugins": {
+      "tailwindcss": {},
+      "autoprefixer": {}
+    }
   },
   "nodemonConfig": {
     "verbose": "true",
     "exec": "node ./bin/www",
     "events": {
-      "start": "docker-compose up; cls || clear",
-      "restart": "docker-compose restart",
+      "start": "docker-compose up; node node_modules/.bin/postcss public/stylesheets/tailwind.css -o public/stylesheets/style.css; cls || clear",
+      "restart": "docker-compose restart; node node_modules/.bin/postcss public/stylesheets/tailwind.css -o public/stylesheets/style.css",
       "quit": "docker-compose down"
     },
     "watch": [
       "bin/www",
       "app.js",
-      "docker/"
+      "docker/",
+      "public/stylesheets/*"
     ]
   }
 }
