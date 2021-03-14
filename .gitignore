@@ -56,5 +56,4 @@ typings/
 .DS_Store
 
 # Development Docker data folders
-data/mongo/*
-data/wallets/*
+data
