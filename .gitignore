@@ -54,3 +54,6 @@ typings/
 
 # Mac files
 .DS_Store
+
+# Development Docker data folders
+data/

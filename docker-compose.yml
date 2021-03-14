@@ -1,0 +1,39 @@
+version: "3.8"
+services:
+  wallets:
+    container_name: wallets
+    image: indy
+    build: 
+      context: .
+      dockerfile: docker/Dockerfile.indy
+    command: |
+      start --endpoint http://127.0.0.1:8060
+      --inbound-transport http 0.0.0.0 8060
+      --outbound-transport http
+      --admin 0.0.0.0 8061
+      --admin-insecure-mode
+      --label ID1.cloudwallet.dev
+      --genesis-url http://greenlight.bcovrin.vonx.io/genesis
+      --wallet-type indy
+      --wallet-storage-type default
+      --wallet-storage-config '{ "path":"/data" }'
+      --wallet-name ID1.cloudwallet.dev761033
+      --wallet-key ID1.cloudwallet.dev761033
+      --preserve-exchange-records
+      --auto-provision
+      --multitenant
+      --jwt-secret ID1.cloudwallet.dev330167
+      --multitenant-admin
+      --log-level info
+    restart: always
+    volumes:
+      - ./data/wallets:/data
+    ports:
+      - '8060-8061:8060-8061'
+  mongo:
+    container_name: mongo
+    image: mongo
+    volumes:
+      - ./data/mongo:/data/db
+    ports:
+      - '27017:27017'

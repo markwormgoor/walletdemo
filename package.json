@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "dev": "nodemon",
     "start": "node ./bin/www"
   },
   "dependencies": {
@@ -13,5 +14,22 @@
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
     "morgan": "~1.9.1"
-  }
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  },
+  "nodemonConfig": {
+    "verbose": "true",
+    "exec": "node ./bin/www",
+    "events": {
+      "start": "docker-compose up; cls || clear",
+      "restart": "docker-compose restart",
+      "quit": "docker-compose down"
+    },
+    "watch": [
+      "bin/www",
+      "app.js",
+      "docker/"
+    ]
+  } 
 }

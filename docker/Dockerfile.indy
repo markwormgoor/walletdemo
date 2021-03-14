@@ -1,0 +1,22 @@
+FROM alpine AS buildstage
+RUN apk update && \
+    apk add --update git && \
+    apk add --update openssh
+RUN git clone https://github.com/hyperledger/aries-cloudagent-python
+
+FROM bcgovimages/von-image:py36-1.15-0 
+ENV ENABLE_PTVSD 0
+
+COPY --from=buildstage /aries-cloudagent-python/requirements*.txt ./
+RUN pip3 install --no-cache-dir -r requirements.txt -r requirements.dev.txt
+
+COPY --from=buildstage /aries-cloudagent-python/aries_cloudagent ./aries_cloudagent
+COPY --from=buildstage /aries-cloudagent-python/bin ./bin
+COPY --from=buildstage /aries-cloudagent-python/README.md ./
+COPY --from=buildstage /aries-cloudagent-python/setup.py ./
+
+RUN pip3 install --no-cache-dir -e .
+
+RUN mkdir logs && chown -R indy:indy logs && chmod -R ug+rw logs
+
+ENTRYPOINT ["/bin/bash", "-c", "aca-py \"$@\"", "--"]
