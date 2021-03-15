@@ -4253,6 +4253,10 @@ video {
   background-image: linear-gradient(to top left, var(--tw-gradient-stops));
 }
 
+.bg-snow {
+  background-image: url('/images/snow.jpg');
+}
+
 .from-transparent {
   --tw-gradient-from: transparent;
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(0, 0, 0, 0));
@@ -34870,6 +34874,10 @@ video {
     background-image: linear-gradient(to top left, var(--tw-gradient-stops));
   }
 
+  .sm\:bg-snow {
+    background-image: url('/images/snow.jpg');
+  }
+
   .sm\:from-transparent {
     --tw-gradient-from: transparent;
     --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(0, 0, 0, 0));
@@ -65407,6 +65415,10 @@ video {
 
   .md\:bg-gradient-to-tl {
     background-image: linear-gradient(to top left, var(--tw-gradient-stops));
+  }
+
+  .md\:bg-snow {
+    background-image: url('/images/snow.jpg');
   }
 
   .md\:from-transparent {
@@ -95948,6 +95960,10 @@ video {
     background-image: linear-gradient(to top left, var(--tw-gradient-stops));
   }
 
+  .lg\:bg-snow {
+    background-image: url('/images/snow.jpg');
+  }
+
   .lg\:from-transparent {
     --tw-gradient-from: transparent;
     --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(0, 0, 0, 0));
@@ -126487,6 +126503,10 @@ video {
     background-image: linear-gradient(to top left, var(--tw-gradient-stops));
   }
 
+  .xl\:bg-snow {
+    background-image: url('/images/snow.jpg');
+  }
+
   .xl\:from-transparent {
     --tw-gradient-from: transparent;
     --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(0, 0, 0, 0));
@@ -157024,6 +157044,10 @@ video {
 
   .\32xl\:bg-gradient-to-tl {
     background-image: linear-gradient(to top left, var(--tw-gradient-stops));
+  }
+
+  .\32xl\:bg-snow {
+    background-image: url('/images/snow.jpg');
   }
 
   .\32xl\:from-transparent {

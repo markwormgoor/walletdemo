@@ -1,5 +1,9 @@
 extends afoo-layout
 
 block content
-  div Hier zou de inhoud moeten staan
-  div #{title}
+  div(class="flex items-center min-h-screen")
+    div(class="container mx-auto px-6")
+      div(class="max-w-md mx-auto my-10 bg-white p-5 rounded-md shadow-sm")
+        div(class="text-center")
+          h1(class="my-3 text-3xl font-semibold text-gray-700 dark:text-gray-200") Register
+          p(class="text-gray-400 dark:text-gray-400") Before you can make use of Identity.one, you'll first need to register your site.

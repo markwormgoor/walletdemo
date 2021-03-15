@@ -6,6 +6,9 @@ module.exports = {
       sans: ["Poppins", 'sans']
     },
     extend: {
+      backgroundImage: {
+        'snow': "url('/images/snow.jpg')",
+      },
     },
   },
   variants: {
