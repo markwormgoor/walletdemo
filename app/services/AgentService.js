@@ -1,9 +1,8 @@
 const http = require('http');
 
-const hostname = process.env.ACAPY_AGENT_HOST || 'localhost';
-const port = 8061;
-
-console.log('Agent is running on: ' + `http://${hostname}:${port}`);
+var config = require('../config');
+var hostname = config.walletagent.hostname;
+var port = config.walletagent.portnumber;
 
 function httpAsync(options, body) {
     return new Promise(function (resolve, reject) {

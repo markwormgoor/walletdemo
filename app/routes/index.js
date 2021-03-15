@@ -1,5 +1,4 @@
 var express = require('express');
-const { listMultitenantWalletConnections } = require('../services/AgentService');
 var router = express.Router();
 var agentService = require('../services/AgentService');
 
