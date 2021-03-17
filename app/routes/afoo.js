@@ -2,15 +2,33 @@ var express = require('express');
 var router = express.Router();
 var db = require('../services/MongoService');
 
-/* Display my current wallet */
+function isSetupComplete() {
+  var settingsquery = { name: "aforceof.one" };
+  db.get().collection("settings").find(settingsquery).toArray (function (err, results) {
+      if (err) throw err;
+      if (results.walletid && results.did) {
+        return true;
+      } else {
+        return false;
+      }
+  });
+}
+
+/* Display our homepage */
 router.get('/', function(req, res, next) {
-  db.get().collections(function(err, collections) {
-    if (err) {
-        console.log(err);
-        next(err);
-    } else {
-      res.render('afoo-index', { title: 'A force of one: testWelcome', list: collections});
-    }
+  if (! isSetupComplete()) {
+    res.redirect('/afoo/setup')
+  } else {
+    res.render('afoo-index', { title: 'A force of one: Welcome', list: collections});
+  }
+});
+
+/* Display our data entry / setup page */
+router.get('/setup', function(req, res, next) {
+  var settingsquery = { name: "aforceof.one" };
+  db.get().collection("settings").find(settingsquery).toArray (function (err, results) {
+      if (err) throw err;
+      res.render('afoo-setup', { title: 'A force of one: Setup Data', settings: results});
   });
 });
 

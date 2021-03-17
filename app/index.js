@@ -5,7 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var session = require ('express-session');
 
-var indexRouter = require('./routes/index');
+var idoneRouter = require('./routes/idone');
 var afooRouter = require('./routes/afoo');
 
 var app = express();
@@ -25,7 +25,10 @@ app.use(express.static(path.join(__dirname, '../wwwroot')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/', indexRouter);
+app.route('/').get(function (req, res) {
+  res.redirect('/afoo/');
+})
+app.use('/id1/', idoneRouter);
 app.use('/afoo/', afooRouter);
 
 // catch 404 and forward to error handler
