@@ -4,16 +4,6 @@ var state = {
   db: null,
 }
 
-function initializeDB () {
-  /* Create collection "settings" if it doesn't exist yet */
-    state.db.createCollection("settings", function(err, collection) {
-    if (! err) {
-      console.log("Initialized DB collection: settings");
-    }
-  });
-
-}
-
 exports.connect = function(url, done) {
   if (state.db) return done();
 
@@ -23,7 +13,6 @@ exports.connect = function(url, done) {
         done(err);
     } else {
         state.db = db.db();
-        initializeDB();
         done();
     }
   })

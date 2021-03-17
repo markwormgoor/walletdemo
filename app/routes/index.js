@@ -75,7 +75,7 @@ router.post('/adopt', async function(req, res, next) {
 /* Delete a wallet */
 router.post('/delete', async function(req, res, next) {
   try {
-    const wallets = await agentService.deleteMultitenantWallets(req.body.wallet_id);
+    const wallets = await agentService.deleteMultitenantWallet(req.body.wallet_id);
     res.redirect  ('/wallets');
   } catch (error) {
     next (error);

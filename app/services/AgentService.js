@@ -106,7 +106,7 @@ class AgentService {
         }
     }
 
-    async deleteMultitenantWallets(wallet_id) {
+    async deleteMultitenantWallet(wallet_id) {
         try {
             const response = await httpAsync({
                 hostname: hostname,
@@ -122,7 +122,6 @@ class AgentService {
     }
 
     async listMultitenantWalletConnections(token) {
-        console.log('Authorization: Bearer ' + token);
         try {
             const response = await httpAsync({
                 hostname: hostname,
@@ -138,7 +137,21 @@ class AgentService {
         }
     }
 
-
+    async createMultitenantWalletDID(token) {
+        try {
+            const response = await httpAsync({
+                hostname: hostname,
+                port: port,
+                path: '/wallet/did/create',
+                method: 'POST',
+                headers: {'Authorization': 'Bearer ' + token}
+            });
+            return response;
+        } catch (e) {
+            console.error(e);
+            throw(e);
+        }
+    }
 
     async getStatus() {
         try {
