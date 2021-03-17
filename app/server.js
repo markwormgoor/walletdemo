@@ -7,8 +7,8 @@
 var app = require('./index');
 var db = require('./services/MongoService');
 var config = require('./config');
+var init = require('./init');
 var http = require('http');
-var agent = require('./services/AgentService');
 const mongoClient = require('mongodb').MongoClient;
 
 /**
@@ -29,6 +29,7 @@ db.connect(config.mongodb.uri, function(err) {
          throw(err);
      } else {
          console.log("Successfully connected to MongoDB");
+         init.init();
          server.listen(config.express.port, config.express.ip);
          server.on('error', onError);
          server.on('listening', onListening);
