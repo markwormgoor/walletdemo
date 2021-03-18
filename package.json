@@ -40,14 +40,11 @@
     "verbose": "true",
     "exec": "node ./app/server.js",
     "events": {
-      "start": "docker-compose up; node node_modules/.bin/postcss wwwroot/stylesheets/tailwind.css -o wwwroot/stylesheets/style.css; cls || clear",
-      "restart": "node node_modules/.bin/postcss wwwroot/stylesheets/tailwind.css -o wwwroot/stylesheets/style.css",
-      "quit": "docker-compose down"
+      "start": "cls || clear; node node_modules/.bin/postcss wwwroot/stylesheets/tailwind.css -o wwwroot/stylesheets/style.css",
+      "restart": "node node_modules/.bin/postcss wwwroot/stylesheets/tailwind.css -o wwwroot/stylesheets/style.css"
     },
     "watch": [
-      "app/server.js",
-      "app/index.js",
-      "docker/",
+      "app/",
       "wwwroot/stylesheets/*"
     ]
   }
