@@ -40,8 +40,8 @@
     "verbose": "true",
     "exec": "node ./app/server.js",
     "events": {
-      "start": "cls || clear; node node_modules/.bin/postcss wwwroot/stylesheets/tailwind.css -o wwwroot/stylesheets/style.css",
-      "restart": "node node_modules/.bin/postcss wwwroot/stylesheets/tailwind.css -o wwwroot/stylesheets/style.css"
+      "start": "docker compose up -d; node node_modules/.bin/postcss wwwroot/stylesheets/tailwind.css -o wwwroot/stylesheets/style.css",
+      "exit": "docker compose down"
     },
     "watch": [
       "app/",
