@@ -40,8 +40,7 @@
     "verbose": "true",
     "exec": "node ./app/server.js",
     "events": {
-      "start": "docker compose up -d; node node_modules/.bin/postcss wwwroot/stylesheets/tailwind.css -o wwwroot/stylesheets/style.css",
-      "exit": "docker compose down"
+      "start": "node node_modules/.bin/postcss wwwroot/stylesheets/tailwind.css -o wwwroot/stylesheets/style.css"
     },
     "watch": [
       "app/",
