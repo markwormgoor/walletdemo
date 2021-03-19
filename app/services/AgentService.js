@@ -1,10 +1,12 @@
 const http = require('http');
+const querystring = require('querystring');
 
 var config = require('../config');
 var hostname = config.walletagent.hostname;
 var port = config.walletagent.portnumber;
 
 function httpAsync(options, body) {
+    console.log("httpAsync call with options: ", options, "and body: ", body);
     return new Promise(function (resolve, reject) {
         const req = http.request(options, (res) => {
             const { statusCode } = res;
@@ -46,6 +48,51 @@ function httpAsync(options, body) {
 }
 
 class AgentService {
+    async registerNym(DID, verkey, alias, endorserToken) {
+        var requestData = {};
+        requestData['did'] = DID;
+        requestData['verkey']=verkey;
+        requestData['alias']=alias;
+        console.log("Token: ", endorserToken, " Request: ", requestData);
+        try {
+            const response = await httpAsync({
+                hostname: hostname,
+                port: port,
+                path: '/ledger/register-nym',
+                method: 'POST',
+                headers: {'Authorization': 'Bearer ' + endorserToken}
+            }, querystring.stringify(requestData));
+            return response;
+        } catch (e) {
+            console.error(e);
+            throw(e);
+        }
+    }
+
+    async setPublicDid(DID, token) {
+        var postData = JSON.stringify({
+            'did' : DID
+        });
+        try {
+            const response = await httpAsync({
+                hostname: hostname,
+                port: port,
+                path: '/wallet/did/public',
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                    'Content-Type': 'application/json',
+                    'Content-Length': Buffer.byteLength(postData)
+                }
+            }, postData
+            );
+            return response;
+        } catch (e) {
+            console.error(e);
+            throw(e);
+        }
+    }
+
     async createMultitenantWallet(walletIn) {
         try {
             const response = await httpAsync({

@@ -24,7 +24,7 @@ services:
       --multitenant
       --jwt-secret ID1.cloudwallet.dev330167
       --multitenant-admin
-      --log-level info
+      --log-level debug
     restart: always
     volumes:
       - ./data/wallets:/data

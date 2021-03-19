@@ -1,0 +1,37 @@
+extends id1-layout
+
+block content
+  div(class="flex items-center")
+    div(class="container mx-auto px-6")
+      div(class="max-w-md mx-auto my-10 p-5")
+        div
+          h1(class="my-3 text-3xl font-semibold text-red-700") STOP: Register Public DID
+          p(class="text-gray-500") For some reason, we're having trouble registering your new DID publicly on the ledger. Please go to the link below - and "Authenticate a new DID" 
+          a(href="http://greenlight.bcovrin.vonx.io/", target="_blank", class="text-gray-700") BCSovrin Greenlight Ledger
+        div(class="mt-4")
+          ol(class="list-decimal list-inside text-gray-500")
+            li Select "Register from DID"
+            li Enter your DID and Verkey from the list below
+            li For the alias, enter your application name
+            li Set role to "None"
+            li and click on "Register DID"
+        div(class="flex items-center justify-between")
+          form(method="POST" action="/id1/register-app2")
+            input(type="hidden" id="appmail" name="appmail" value=appmail)
+            input(type="hidden" id="appname" name="appname" value=appname)
+            input(type="hidden" id="did" name="did" value=did)
+            input(type="hidden" id="verkey" name="verkey" value=verkey)
+            input(type="hidden" id="wallet" name="wallet" value=wallet)
+            button(class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded", type="submit") Continue when Done
+        div(class="mt-4 mb-4")
+          label(class="block text-grey-500 text-sm font-bold mb-2", for="appname") Application Name:
+          label(class="py-2 px-3 text-grey-700") #{appname}
+        div(class="mb-4")
+          label(class="block text-grey-500 text-sm font-bold mb-2", for="appmail") Your Contact E-mail:
+          label(class="py-2 px-3 text-grey-700") #{appmail}
+        div(class="mb-4")
+          label(class="block text-grey-500 text-sm font-bold mb-2", for="appmail") DID: 
+          label(class="py-2 px-3 text-grey-700") #{did}
+        div(class="mb-4")
+          label(class="block text-grey-500 text-sm font-bold mb-2", for="appmail") Verkey:
+           label(class="py-2 px-3 text-grey-700") #{verkey}

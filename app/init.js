@@ -26,7 +26,7 @@ async function initializeEndorserWallet() {
   walletBuild['wallet_webhook_urls']=['http://localhost:3000/webhooks'];
   const walletBuildString=JSON.stringify(walletBuild);
 
-  try { 
+  try {
     const wallet = await agentService.createMultitenantWallet(walletBuildString);
     console.log('Created new wallet for our Endorser: ' + wallet.wallet_id)
 

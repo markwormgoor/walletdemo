@@ -1,21 +1,22 @@
 #!/usr/bin/env node
 
+/*
+ * NOTE: For our OIDC serverm we should use:
+ *       https://github.com/panva/node-oidc-provider/
+ */
+
 /**
  * Module dependencies.
  */
 
-var app = require('./index');
 var db = require('./services/MongoService');
 var config = require('./config');
 var init = require('./init');
 var http = require('http');
+var app = null;
+var server = null;
 const mongoClient = require('mongodb').MongoClient;
 
-/**
- * Create HTTP server.
- */
-
-var server = http.createServer(app);
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -30,6 +31,12 @@ db.connect(config.mongodb.uri, function(err) {
      } else {
          console.log("Successfully connected to MongoDB");
          init.init();
+         /**
+          * Create HTTP server.
+          */
+         app = require('./index');
+         server = http.createServer(app);
+
          server.listen(config.express.port, config.express.ip);
          server.on('error', onError);
          server.on('listening', onListening);
