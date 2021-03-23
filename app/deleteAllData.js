@@ -1,29 +1,31 @@
-var db = require('./services/MongoService');
-var agentService = require('./services/AgentService');
+var mongoose = require('mongoose');
 var config = require('./config');
+var agentService = require('./services/AgentService');
 
-db.connect(config.mongodb.uri, function(err) {
-  if (err)
-  {
-      console.log("Error connecting to MongoDB");
-      console.log(err);
-      db.close();
-      throw(err);
-  } else {
-      dropSettingsCollection();
-      const delWallets = async() => {
-        const result = await deleteAllWallets();
-      }
-      delWallets();
+mongoose.connect(config.mongodb.uri, { useNewUrlParser: true ,useUnifiedTopology: true })
+.then(() => {
+  console.log("Connected to MongoDB server.");
+  dropSettingsCollection();
+  const delWallets = async() => {
+    const result = await deleteAllWallets();
   }
-})
+  delWallets();
+}).catch((err) => {
+  console.log("Error connecting to MongoDB");
+  console.log(err);
+  throw(err);
+});
 
 
 function dropSettingsCollection () {
-  /* Create collection "settings" if it doesn't exist yet */
-  db.get().collection("settings").drop(function(err, delOK) {
+  mongoose.connection.db.dropCollection('Settings', function(err, delOK) {
     if (! err) {
-      console.log("Deleted DB collection: settings");
+      console.log("Deleted DB collection: settings: ", delOK);
+    }
+  });
+  mongoose.connection.db.dropCollection('User', function(err, delOK) {
+    if (! err) {
+      console.log("Deleted DB collection: settings: ", delOK);
     }
   });
 }

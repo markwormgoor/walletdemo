@@ -1,4 +1,4 @@
-var MongoClient = require('mongodb').MongoClient
+var mongoose = require('mongoose');
 
 var state = {
   db: null,
@@ -6,16 +6,15 @@ var state = {
 
 exports.connect = function(url, done) {
   if (state.db) return done();
-
-  MongoClient.connect(url, { useNewUrlParser: true ,useUnifiedTopology: true }, function(err, db) {
-    if (err) {
-        console.log(err);
-        done(err);
-    } else {
-        state.db = db.db();
-        done();
-    }
+  mongoose.connection.on("open", function(ref) {
+    console.log("Connected to MongoDB server.");
+    done()
   })
+  mongoose.connection.on("error", function(err) {
+    console.log("Could not connect to MongoDB server.");
+    done(err);
+  })
+  state.db = mongoose.connect(url, { useNewUrlParser: true ,useUnifiedTopology: true });
 }
 
 exports.get = function() {

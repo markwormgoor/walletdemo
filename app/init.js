@@ -1,14 +1,6 @@
-var db = require('./services/MongoService');
-var agentService = require('./services/AgentService');
 
-function initializeDB () {
-  /* Create collection "settings" if it doesn't exist yet */
-  db.get().createCollection("settings", function(err, collection) {
-    if (! err) {
-      console.log("Initialized DB collection: settings");
-    }
-  });
-}
+var agentService = require('./services/AgentService');
+var Settings = require('./models/settings');
 
 async function initializeEndorserWallet() {
   const Crypto = require('crypto');  
@@ -32,7 +24,7 @@ async function initializeEndorserWallet() {
 
     const DID = await agentService.createMultitenantWalletDID(wallet.token);
     console.log('Created new DID for our Endorser: ' + DID.result.did);
-    return { walletid: wallet.wallet_id, did: DID.result.did };
+    return { wallet_id: wallet.wallet_id, did: DID.result.did };
   } catch (err) {
     console.log("Creating Endorser wallet failed.");
     console.log(err);
@@ -40,28 +32,24 @@ async function initializeEndorserWallet() {
 }
 
 function initializeID1Settings () {
-    var settingsquery = { name: "identity.one" };
-    db.get().collection("settings").find(settingsquery).toArray (function (err, results){
-        if (err) throw err;
-        if (results.length < 1) {
-            console.log("id1 settings object does not exist");
-            const setupWallet = async() => {
-                const wallet = await initializeEndorserWallet();
-                const afooSettings = { name: "identity.one", walletid: wallet.walletid, publicdid: wallet.did };                
-                db.get().collection("settings").insertOne(afooSettings, function(err, res) {
-                    if(err) throw err;
-                    console.log("Inserted settings object into MongoDB");
-                });
-            }
-            setupWallet();
-        } else {
-            console.log("id1 settings object already exists");
+    Settings.findOne({ name: "identity.one" }, function (err, result) {
+      if (err || ! result) {
+        const setupWallet = async() => {
+          const wallet = await initializeEndorserWallet();
+          var setting = new Settings ({ name: "identity.one", settings: { wallet_id: wallet.wallet_id, publicdid: wallet.did } });
+          setting.save(function (err, setting) {
+            if(err) throw err;
+            console.log("Inserted settings object into MongoDB");
+          });
         }
+        setupWallet();
+      } else {
+        console.log("id1 settings object already exists");
+      }
     });
-}
+};
 
 exports.init = function(url, done) {
     console.log("Starting application initialization");
-    initializeDB();
     initializeID1Settings();
 }
