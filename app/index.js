@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 var session = require ('express-session');
 
 var idoneRouter = require('./routes/idone');
-var afooRouter = require('./routes/afoo');
+// var afooRouter = require('./routes/afoo');
 
 var app = express();
 
@@ -26,10 +26,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.route('/').get(function (req, res) {
-  res.redirect('/afoo/');
+  res.redirect('/id1/');
 })
 app.use('/id1/', idoneRouter);
-app.use('/afoo/', afooRouter);
+// app.use('/afoo/', afooRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

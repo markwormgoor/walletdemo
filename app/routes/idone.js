@@ -1,14 +1,11 @@
 var express = require('express');
 var router = express.Router();
-var db = require ('../services/MongoService');
+var Settings = require ('../models/settings');
 var agentService = require('../services/AgentService');
-const AgentService = require('../services/AgentService');
 
-db.get().collection("settings").find({ name: "identity.one" }).toArray (function (err, results){
+Settings.findOne({ name: "identity.one" }, function (err, result) {
   if (err) throw err;
-  if (results[0].walletid.length >= 1) {
-    ID1settings = results[0];
-  }
+  ID1settings = result.settings;
 });
 
 /* Get started with our walkthrough. */
@@ -46,7 +43,7 @@ router.post('/register-app', async function(req, res, next) {
     console.log('with verification key (' + appname + '): ' + DID.result.verkey);
 
     // Publicly register the application on the ledger, using our public DID
-    token = await AgentService.getMultitenantWalletToken(ID1settings.walletid);
+    token = await AgentService.getMultitenantWalletToken(ID1Settings.get("wallet_id"));
 
     // ERROR: THIS ISNT WORKING - NEEDS TO BE FIXED
     //none = await AgentService.registerNym(DID.result.did, DID.result.verkey, appname, token.token  );
